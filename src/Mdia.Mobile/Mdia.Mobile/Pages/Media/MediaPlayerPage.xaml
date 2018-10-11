@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:Mdia.Mobile.Toolkit;assembly=Mdia.Mobile.Toolkit"
+             xmlns:media="clr-namespace:InTheHand.Forms;assembly=InTheHand.Forms"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             x:Class="Mdia.Mobile.Pages.Media.MediaPlayerPage"
+             Title="Media Player">
+
+    <StackLayout Margin="5" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout Padding="5" Orientation="Horizontal" VerticalOptions="Center" >
+            <Label Text="{Binding MediaTitle}"></Label>
+            <!--<Button Clicked="OnPDFViewerButtonClicked" Text="View PDF Document"/>-->
+        </StackLayout>
+
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <!--<media:MediaElement x:Name="Media"
+                                BackgroundColor="Black"
+                                Stretch="UniformToFill"
+                                Source="file:///LegOver.mp4" 
+                                AreTransportControlsEnabled="True"
+                                HorizontalOptions="Fill" 
+                                VerticalOptions="Center"
+                                
+                                AutoPlay="True"
+                                />-->
+            
+            <!--Source="http://video.ch9.ms/ch9/334f/891b78a5-642d-40b4-8d02-ff40ffdd334f/LoginToLinkedinUSingXamarinAuth_mid.mp4"-->
+
+
+            <forms:VideoView x:Name="md"
+                         HorizontalOptions="Fill" 
+                         VerticalOptions="Fill"
+                         Source="{Binding MediaSource}" 
+                         AspectMode="AspectFill"/>
+            
+            
+            <!--Source="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"-->
+
+            <Grid Margin="0,5" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" Grid.Row="1" Grid.RowSpan="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0" Grid.ColumnSpan="3" Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Duration: "></Label>
+                        <Label Text="{Binding Duration}"/>
+                        
+                        <!--<Label x:Name="Duration"/>-->
+                    </StackLayout>
+                    <!--<ProgressBar x:Name="pbProgressBar" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand"></ProgressBar>-->
+
+                    <ProgressBar Progress="{Binding Progess}" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand"></ProgressBar>
+                </StackLayout>
+
+                <Button Grid.Row="1" Grid.Column="0" Command="{Binding PlayCommand}" TextColor="White" Text="Play" BackgroundColor="Gray" HeightRequest="50" VerticalOptions="Center" WidthRequest="100" ></Button>
+                <Button Grid.Row="1" Grid.Column="1" Command="{Binding PauseCommand}" TextColor="White" Text="Pause" BackgroundColor="Gray" HeightRequest="50" VerticalOptions="Center" WidthRequest="100" ></Button>
+                <Button Grid.Row="1" Grid.Column="2" Command="{Binding StopCommand}" TextColor="White" Text="Stop" BackgroundColor="Gray" HeightRequest="50" VerticalOptions="Center" WidthRequest="100" ></Button>
+                
+                <!--<Button x:Name="btnPlay" Grid.Row="1" Grid.Column="0" TextColor="White" Text="Play" BackgroundColor="Gray" HeightRequest="50" VerticalOptions="Center" WidthRequest="100" Clicked="OnPlayButtonClicked"></Button>-->
+
+                
+                
+                <!--<Button Grid.Row="1" Grid.Column="0" TextColor="White" Text="Play" BackgroundColor="Gray" HeightRequest="50" VerticalOptions="Center" WidthRequest="100" Clicked="PlayClicked"></Button>
+                <Button Grid.Row="1" Grid.Column="1" TextColor="White" Text="Pause" BackgroundColor="Gray" HeightRequest="50" VerticalOptions="Center" WidthRequest="100" Clicked="PauseClicked"></Button>
+                <Button Grid.Row="1" Grid.Column="2" TextColor="White" Text="Stop" BackgroundColor="Gray" HeightRequest="50" VerticalOptions="Center" WidthRequest="100" Clicked="StopClicked"></Button>-->
+            </Grid>
+        </Grid>
+    </StackLayout>
+</ContentPage>

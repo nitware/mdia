@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             x:Class="Mdia.Mobile.Pages.SearchPage"
+             Title="Find">
+
+
+    <Grid Margin="5" RowSpacing="0" ColumnSpacing="0" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <SearchBar Grid.Row="0" Placeholder="Enter title to search ..."></SearchBar>
+
+
+
+
+    </Grid>
+</ContentPage>

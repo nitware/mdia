@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mdia.Mobile.Pages.UserCntrols.ContentListView"
+             xmlns:converter="clr-namespace:Mdia.Mobile.Converters">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:ContentTypeIconConverter x:Key="ContentTypeIconConverter" />
+            <converter:NairaConverter x:Key="NairaConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+        <StackLayout Margin="5" IsVisible="{Binding ShowDetailsPage}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnSpacing>
+                        <OnIdiom x:TypeArguments="x:Double">
+                            <OnIdiom.Phone>20</OnIdiom.Phone>
+                            <OnIdiom.Tablet>40</OnIdiom.Tablet>
+                        </OnIdiom>
+                    </Grid.ColumnSpacing>
+                    <Grid.RowSpacing>
+                        <OnIdiom x:TypeArguments="x:Double">
+                            <OnIdiom.Phone>10</OnIdiom.Phone>
+                            <OnIdiom.Tablet>20</OnIdiom.Tablet>
+                        </OnIdiom>
+                    </Grid.RowSpacing>
+                    <Grid.Padding>
+                        <OnIdiom x:TypeArguments="Thickness">
+                            <OnIdiom.Phone>10,10,10,0</OnIdiom.Phone>
+                            <OnIdiom.Tablet>20,20,20,0</OnIdiom.Tablet>
+                        </OnIdiom>
+                    </Grid.Padding>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Type:" FontAttributes="Bold" FontSize="Medium" VerticalOptions="End" />
+                    <StackLayout Grid.Column="1" Orientation="Vertical" HorizontalOptions="Start" >
+                        <Image Source="{Binding Content.Type.Id, Converter={StaticResource ContentTypeIconConverter}}" HorizontalOptions="Start" />
+                        <Label Text="{Binding Content.Type.Name}" HorizontalOptions="Start" />
+                    </StackLayout>
+
+                    <Label Grid.Row="1" FontAttributes="Bold" FontSize="Medium" Text="Title:"  />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Content.Title}" />
+
+                    <Label Grid.Row="2" FontAttributes="Bold" FontSize="Medium" Text="Size:" VerticalOptions="Center" />
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Content.Size}" />
+
+                    <Label Grid.Row="3" FontAttributes="Bold" FontSize="Medium" Text="Price (₦):" VerticalOptions="Center"  />
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Content.Price, StringFormat='{0:n}'}" />
+
+                    <Label Grid.Row="4" FontAttributes="Bold" FontSize="Medium" Text="Description:" />
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding Content.Description}" />
+                </Grid>
+            </ScrollView>
+
+            <Grid Margin="5,0" RowSpacing="0" ColumnSpacing="0" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button BorderRadius="0" Text="&lt; &lt; Back" Command="{Binding BackCommand}" HorizontalOptions="Start" VerticalOptions="Center" HeightRequest="50" />
+                <!--<Button BorderRadius="0" Text="&#x21D0; Back" Command="{Binding BackCommand}" HorizontalOptions="Start" VerticalOptions="Center" HeightRequest="50" />-->
+
+                <StackLayout Grid.Column="2" Spacing="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Button Clicked="OnPlayButtonClicked" BorderRadius="0" Text="{Binding PreviewButtonText}" Command="{Binding PreviewCommand}" VerticalOptions="Center" HeightRequest="50" />
+                    <Button Clicked="OnBuyButtonClicked" BorderRadius="0" Text="Buy" Command="{Binding BuyCommand}" BackgroundColor="Red" VerticalOptions="Center" HeightRequest="50" TextColor="White" FontAttributes="Bold"/>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Margin="5" IsVisible="{Binding ShowMasterPage}" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <ListView ItemsSource="{Binding Contents, Mode=TwoWay}" 
+                      SelectedItem="{Binding Content, Mode=OneWayToSource}" 
+                      HasUnevenRows="True" 
+                      RowHeight="40"
+                      CachingStrategy="RecycleElement"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsBusy}"
+                      SeparatorColor="Gray" >
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="0,5,5,5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <Image Source="{Binding Type.Id, Converter={ StaticResource ContentTypeIconConverter}}" VerticalOptions="Start" ></Image>
+
+                                <Grid ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.ColumnSpan="2" Text="{Binding Price, Converter={StaticResource NairaConverter}}" TextColor="Red" FontSize="Small" VerticalOptions="FillAndExpand" LineBreakMode="NoWrap"/>
+                                    <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Title}" FontSize="Medium" VerticalOptions="FillAndExpand" LineBreakMode="WordWrap"/>
+                                    <Label Grid.Row="2" Text="{Binding Description}" FontSize="Small" HorizontalTextAlignment="Start" VerticalOptions="End" HorizontalOptions="FillAndExpand" LineBreakMode="WordWrap"/>
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Size}" FontSize="Small" TextColor="#3498DB" HorizontalTextAlignment="End" VerticalOptions="End" HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentView>

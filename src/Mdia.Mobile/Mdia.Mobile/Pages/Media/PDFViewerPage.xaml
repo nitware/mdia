@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:reader="clr-namespace:Mdia.Mobile.Toolkit;assembly=Mdia.Mobile.Toolkit"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             x:Class="Mdia.Mobile.Pages.Media.PDFViewerPage"
+             Title="PDF Viewer">
+
+    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout Margin="0,5,0,0" Padding="5" Orientation="Horizontal" BackgroundColor="Gray" VerticalOptions="Center" >
+            <Button Clicked="OnMediaButtonClicked" Text="Watch Video" HorizontalOptions="Start"/>
+            <Button Clicked="OnLoadPDFCommand" Text="Load PDF" HorizontalOptions="Start"/>
+            <Button Clicked="OnSelectFileCommand" Text="Select File" HorizontalOptions="Start"/>
+            <!--<Label Text="Display a Local PDF File in a WebView" HorizontalOptions="End" HorizontalTextAlignment="End" VerticalTextAlignment="Center"></Label>-->
+        </StackLayout>
+
+        <!--<WebView Source="https://docs.google.com/viewer?url=https://www.asp.net/media/4071077/aspnet-web-api-poster.pdf" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></WebView>-->
+        <!--<Label Text="{Binding SelectedFile}"></Label>-->
+
+        <Label x:Name="txtSelectedFile" ></Label>
+        <!--<StackLayout x:Name="slPDFReader">-->
+        <reader:PDFReader Uri="{Binding Uri}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+        <!--</StackLayout>-->
+    </StackLayout>
+</ContentPage>

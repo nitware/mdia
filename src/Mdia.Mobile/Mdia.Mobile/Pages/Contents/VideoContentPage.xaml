@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mdia.Mobile.Pages.Contents.VideoContentPage"
+             xmlns:ucs="clr-namespace:Mdia.Mobile.Pages.UserCntrols"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             Title="Video">
+
+        <ucs:ContentListView />
+
+    <!--<ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Label Text="Videos" />
+            <media:MediaElement x:Name="mePlayer" Source="https://sec.ch9.ms/ch9/b4ca/4e3d3cb1-4345-467b-9dc7-9fdcc9f6b4ca/VS2017_high.mp4" KeepScreenOn="True" AutoPlay="True" HorizontalOptions="Fill" VerticalOptions="Fill" AreTransportControlsEnabled="true" ></media:MediaElement>
+            <roxxv:VideoView AutoPlay="True" LoopPlay="True" ShowController="True" Source="http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4" />
+            <roxxv:VideoView AutoPlay="True" LoopPlay="True" ShowController="True" Source="LegOver.mp4" />
+        </StackLayout>
+    </ContentPage.Content>-->
+    
+</ContentPage>

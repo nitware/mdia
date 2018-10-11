@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mdia.Mobile.Pages.Upload.UploadPage"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             Title="Upload">
+
+    <StackLayout>
+        <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Padding="10" >
+            <ActivityIndicator x:Name="aiBusy" HorizontalOptions="Center" />
+            <Label x:Name="lblBusy" HorizontalOptions="Center" VerticalOptions="Center" Text="Busy..."/>
+        </StackLayout>
+
+        <ScrollView VerticalOptions="FillAndExpand">
+            <Grid VerticalOptions="FillAndExpand">
+                <Grid.ColumnSpacing>
+                    <OnIdiom x:TypeArguments="x:Double">
+                        <OnIdiom.Phone>20</OnIdiom.Phone>
+                        <OnIdiom.Tablet>40</OnIdiom.Tablet>
+                    </OnIdiom>
+                </Grid.ColumnSpacing>
+                <Grid.RowSpacing>
+                    <OnIdiom x:TypeArguments="x:Double">
+                        <OnIdiom.Phone>10</OnIdiom.Phone>
+                        <OnIdiom.Tablet>20</OnIdiom.Tablet>
+                    </OnIdiom>
+                </Grid.RowSpacing>
+                <Grid.Padding>
+                    <OnIdiom x:TypeArguments="Thickness">
+                        <OnIdiom.Phone>10,10,10,0</OnIdiom.Phone>
+                        <OnIdiom.Tablet>20,20,20,0</OnIdiom.Tablet>
+                    </OnIdiom>
+                </Grid.Padding>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label FontAttributes="Bold" FontSize="Medium" Text="Title:"  />
+                <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Title}" Keyboard="Default"/>
+
+                <Label Grid.Row="1" FontAttributes="Bold" FontSize="Medium" Text="Content Type:" VerticalOptions="Center" />
+                <Picker x:Name="pkContentType" Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding ContentType, Mode=TwoWay}" >
+                    <Picker.Items>
+                        <x:String>-- Select --</x:String>
+                        <x:String>Text</x:String>
+                        <x:String>Audio</x:String>
+                        <x:String>Video</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Label Grid.Row="2" FontAttributes="Bold" FontSize="Medium" Text="Cost:" VerticalOptions="Center"  />
+                <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Cost}" Keyboard="Default"/>
+
+                <Label Grid.Row="3" FontAttributes="Bold" FontSize="Medium" Text="Description:" />
+                <Entry Grid.Row="3" Grid.Column="1" HeightRequest="100" Text="{Binding Description}" Keyboard="Default"/>
+
+                <Button Grid.Row="4" Clicked="btnPickFile_OnClicked" Command="{Binding PickFileCommand}" HeightRequest="50" BorderRadius="0" Text="Pick File" />
+                <Label x:Name="eFilePath" Grid.Row="4" Grid.Column="1" Text="{Binding Text}" BackgroundColor="#103498DB"/>
+
+                <Image Grid.Row="5" Grid.ColumnSpan="2" x:Name="image"></Image>
+            </Grid>
+        </ScrollView>
+
+        <Button Clicked="btnUpload_OnClicked" Margin="10,0" BorderRadius="0" BackgroundColor="Purple"  HeightRequest="50" TextColor="White" FontAttributes="Bold" Text="Upload" Command="{Binding UploadCommand}"/>
+    </StackLayout>
+</ContentPage>

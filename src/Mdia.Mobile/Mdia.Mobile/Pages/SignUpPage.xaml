@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             x:Class="Mdia.Mobile.Pages.SignUpPage"
+             BackgroundColor="Silver"
+             Title="Sign Up">
+
+    <StackLayout>
+        <ScrollView>
+            <Grid Padding="20, 15, 20, 20" RowSpacing="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Register" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" TextColor="White">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <OnPlatform.iOS>MarkerFelt-Thin</OnPlatform.iOS>
+                            <OnPlatform.Android></OnPlatform.Android>
+                            <OnPlatform.WinPhone></OnPlatform.WinPhone>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+
+                <Grid Grid.Row="2" HorizontalOptions="Fill" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="iconUsername.png" HeightRequest="30" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Placeholder="First Name" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <Grid Grid.Row="3" HorizontalOptions="Fill" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="iconUsername.png" HeightRequest="30" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Placeholder="Surname" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <Grid Grid.Row="4" HorizontalOptions="Fill" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="iconEmail.png" HeightRequest="30" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Placeholder="Email" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <Grid Grid.Row="5" HorizontalOptions="Fill" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="phone.png" HeightRequest="30" VerticalOptions="Center" />
+                    <Entry Placeholder="Mobile No" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <Grid Grid.Row="6" HorizontalOptions="Fill" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="iconPassword.png" HeightRequest="30" VerticalOptions="Center" />
+                    <Entry Placeholder="Password" IsPassword="True" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="1"/>
+
+                </Grid>
+
+                <Grid Grid.Row="7" HorizontalOptions="Fill" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="iconPassword.png" HeightRequest="30" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Placeholder="Confirm Password" IsPassword="True" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+
+                <!--<StackLayout Grid.Row="8" Spacing="12" HorizontalOptions="Fill">
+                    <Button Text="Sign Up" HorizontalOptions="Fill" BackgroundColor="Gray" HeightRequest="50" FontAttributes="Bold" TextColor="White"/>
+                </StackLayout>-->
+            </Grid>
+        </ScrollView>
+
+        <!--<StackLayout Margin="20,0" HorizontalOptions="Fill">-->
+        <Button Margin="20,0" Text="Sign Up" HorizontalOptions="Fill" BackgroundColor="DarkGray" HeightRequest="50" FontAttributes="Bold" TextColor="White"/>
+        <!--</StackLayout>-->
+    </StackLayout>
+
+</ContentPage>

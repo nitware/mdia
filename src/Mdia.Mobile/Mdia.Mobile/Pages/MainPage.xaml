@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Mdia.Mobile"
+             x:Class="Mdia.Mobile.Pages.MainPage">
+
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+        
+        <ActivityIndicator x:Name="aiBusy" IsRunning="False"></ActivityIndicator>
+        
+        <Entry x:Name="txtInput"></Entry>
+        
+        <Button Clicked="btnPickPhoto_OnClicked" Text="Pick Photo"></Button>
+        <Button Clicked="btnTakePhoto_OnClicked" Text="Take Photo"></Button>
+        <Button Clicked="btnPickFile_Onclicked" Text="Pick File"></Button>
+        <Button Clicked="btnTestService_Onclicked" Text="Test WCF Service"></Button>
+        <Button Clicked="btnTempConverter_Onclicked" Text="Test Web Service"></Button>
+        <Button Clicked="btnTestRESTService_Onclicked" Text="Test Web API REST Service"></Button>
+        
+        <Image x:Name="image"></Image>
+        
+        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Label x:Name="filePath"></Label>
+        </ScrollView>
+    </StackLayout>
+
+</ContentPage>

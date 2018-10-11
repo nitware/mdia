@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3ac3fd87ae864837896000569780140c" Name="Diagram1">
+        <EntityTypeShape EntityType="MdiaModel.CONTENT" Width="1.5" PointX="8.25" PointY="7.625" />
+        <EntityTypeShape EntityType="MdiaModel.CONTENT_TYPE" Width="1.5" PointX="6" PointY="4.625" />
+        <EntityTypeShape EntityType="MdiaModel.DOWNLOAD" Width="1.5" PointX="10.5" PointY="8.5" />
+        <EntityTypeShape EntityType="MdiaModel.PAYMENT" Width="1.5" PointX="5.25" PointY="7.75" />
+        <EntityTypeShape EntityType="MdiaModel.PAYMENT_CHANNEL" Width="1.5" PointX="3" PointY="14.875" />
+        <EntityTypeShape EntityType="MdiaModel.PAYMENT_INTERSWITCH" Width="1.5" PointX="7.5" PointY="12.875" />
+        <EntityTypeShape EntityType="MdiaModel.PAYMENT_MODE" Width="1.5" PointX="3" PointY="12.375" />
+        <EntityTypeShape EntityType="MdiaModel.RIGHT" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="MdiaModel.ROLE" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="MdiaModel.ROLE_RIGHT" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="MdiaModel.USER" Width="1.5" PointX="3" PointY="7.75" />
+        <AssociationConnector Association="MdiaModel.FK_CONTENT_CONTENT_TYPE" />
+        <AssociationConnector Association="MdiaModel.FK_CONTENT_USER" />
+        <AssociationConnector Association="MdiaModel.FK_CONTENT_USER1" />
+        <AssociationConnector Association="MdiaModel.FK_DOWNLOAD_CONTENT" />
+        <AssociationConnector Association="MdiaModel.FK_DOWNLOAD_PAYMENT" />
+        <AssociationConnector Association="MdiaModel.FK_PAYMENT_INTERSWITCH_PAYMENT" />
+        <AssociationConnector Association="MdiaModel.FK_PAYMENT_PAYMENT_CHANNEL" />
+        <AssociationConnector Association="MdiaModel.FK_PAYMENT_PAYMENT_MODE" />
+        <AssociationConnector Association="MdiaModel.FK_PAYMENT_USER" />
+        <AssociationConnector Association="MdiaModel.FK_ROLE_RIGHT_RIGHT" />
+        <AssociationConnector Association="MdiaModel.FK_ROLE_RIGHT_ROLE" />
+        <AssociationConnector Association="MdiaModel.FK_USER_ROLE" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

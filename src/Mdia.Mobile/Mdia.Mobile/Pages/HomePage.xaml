@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mdia.Mobile.Pages.HomePage"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             BackgroundColor="White"
+             >
+
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Margin="20" Padding="20" Orientation="Vertical" BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="Center" >
+            <Image Source="logo.jpg" HorizontalOptions="CenterAndExpand" />
+            <Label FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" >Gusto</Label>
+            <Label Margin="0,20,0,0" FontSize="Medium" HorizontalOptions="CenterAndExpand" TextColor="Black" HorizontalTextAlignment="Center" >App that houses varieties of content, ranging from text, audio, video, etc.</Label>
+        </StackLayout>
+
+        <Grid Grid.Row="1" Margin="0,5" HorizontalOptions="Center" ColumnSpacing="0" RowSpacing="0" VerticalOptions="Center" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Frame Grid.Column="0" OutlineColor="Black" CornerRadius="5" >
+                <Button Command="{Binding bSignupCommand}" Image="adduser.png" BackgroundColor="Transparent"/>
+                
+                <!--<Button x:Name="btnSignUp" Image="adduser.png" BackgroundColor="Transparent"/>-->
+            </Frame>
+            <Frame Grid.Column="1" OutlineColor="Black" CornerRadius="5" >
+                <Button Command="{Binding ListContentCommand}" Image="list.png" BackgroundColor="Transparent"/>
+                
+                <!--<Button x:Name="btnList" Image="list.png" BackgroundColor="Transparent"/>-->
+            </Frame>
+            <Frame Grid.Column="2" OutlineColor="Black" CornerRadius="5" >
+                <Button Command="{Binding LoginCommand}" Image="login.png" BackgroundColor="Transparent"/>
+                
+                <!--<Button x:Name="btnLogin" Image="login.png" BackgroundColor="Transparent"/>-->
+            </Frame>
+            <Frame Grid.Column="3" OutlineColor="Black" CornerRadius="5" >
+                <Button Command="{Binding ViewMediaCommand}" Image="folder.png" BackgroundColor="Transparent"/>
+                
+                <!--<Button x:Name="btnMd" Image="folder.png" BackgroundColor="Transparent"/>-->
+            </Frame>
+        </Grid>
+    </Grid>
+
+    
+
+</ContentPage>

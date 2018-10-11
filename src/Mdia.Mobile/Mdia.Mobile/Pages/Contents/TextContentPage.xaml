@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mdia.Mobile.Pages.Contents.TextContentPage"
+             xmlns:media="clr-namespace:InTheHand.Forms;assembly=InTheHand.Forms"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             xmlns:ucs="clr-namespace:Mdia.Mobile.Pages.UserCntrols"
+             Title="Text">
+
+    <ucs:ContentListView />
+
+
+    <!--<StackLayout x:Name="slMain" Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">-->
+    <!--<ScrollView x:Name="svContainer" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />-->
+
+</ContentPage>

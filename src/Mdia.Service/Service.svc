@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Mdia.Service.Service" CodeBehind="Mdia.Service.WcfServiceFactory" %>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mdia.Mobile.Pages.Contents.ContentListPage"
+            xmlns:pages="clr-namespace:Mdia.Mobile.Pages.Contents"
+            xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+            BarBackgroundColor="Purple"
+             Title="Contents">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Clicked="OnFindIconClicked" >
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource" Android="search.png" />
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
+        <ToolbarItem Order="Primary" Clicked="OnUploadIconClicked" >
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource" Android="upload.png" />
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
+        <ToolbarItem Order="Secondary" Text="Edit Profile" />
+        <ToolbarItem Order="Secondary" Text="Change Password" />
+        <ToolbarItem Order="Secondary" Text="Logout" />
+    </ContentPage.ToolbarItems>
+
+    <pages:LatestContentPage/>
+    <pages:TextContentPage/>
+    <pages:AudioContentPage/>
+    <pages:VideoContentPage/>
+    
+
+
+
+</TabbedPage>

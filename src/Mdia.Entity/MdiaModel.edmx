@@ -1,0 +1,809 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MdiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONTENT">
+          <Key>
+            <PropertyRef Name="Content_Id" />
+          </Key>
+          <Property Name="Content_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="150" />
+          <Property Name="Date_Uploaded" Type="datetime" Nullable="false" />
+          <Property Name="Uploader_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Content_Type_Id" Type="int" Nullable="false" />
+          <Property Name="Cost" Type="money" Nullable="false" />
+          <Property Name="Approved" Type="bit" Nullable="false" />
+          <Property Name="Approver_Id" Type="uniqueidentifier" />
+          <Property Name="URL" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Size" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTENT_TYPE">
+          <Key>
+            <PropertyRef Name="Content_Type_Id" />
+          </Key>
+          <Property Name="Content_Type_Id" Type="int" Nullable="false" />
+          <Property Name="Content_Type_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Content_Type_Description" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="DOWNLOAD">
+          <Key>
+            <PropertyRef Name="Download_Id" />
+          </Key>
+          <Property Name="Download_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Content_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Payment_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PAYMENT">
+          <Key>
+            <PropertyRef Name="Payment_Id" />
+          </Key>
+          <Property Name="Payment_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Payment_Mode_Id" Type="int" Nullable="false" />
+          <Property Name="Payment_Channel_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Serial_Number" Type="bigint" />
+          <Property Name="Invoice_Number" Type="varchar" MaxLength="20" />
+          <Property Name="Paid" Type="bit" Nullable="false" />
+          <Property Name="Date_Paid" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PAYMENT_CHANNEL">
+          <Key>
+            <PropertyRef Name="Payment_Channel_Id" />
+          </Key>
+          <Property Name="Payment_Channel_Id" Type="int" Nullable="false" />
+          <Property Name="Payment_Channel_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Payment_Channel_Description" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="PAYMENT_INTERSWITCH">
+          <Key>
+            <PropertyRef Name="Payment_Id" />
+          </Key>
+          <Property Name="Payment_Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PAYMENT_MODE">
+          <Key>
+            <PropertyRef Name="Payment_Mode_Id" />
+          </Key>
+          <Property Name="Payment_Mode_Id" Type="int" Nullable="false" />
+          <Property Name="Payment_Mode_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Payment_Mode_Description" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="RIGHT">
+          <Key>
+            <PropertyRef Name="Right_Id" />
+          </Key>
+          <Property Name="Right_Id" Type="int" Nullable="false" />
+          <Property Name="Right_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Right_Description" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="Role_Id" />
+          </Key>
+          <Property Name="Role_Id" Type="int" Nullable="false" />
+          <Property Name="Role_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role_Description" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="ROLE_RIGHT">
+          <Key>
+            <PropertyRef Name="Role_Id" />
+            <PropertyRef Name="Right_Id" />
+          </Key>
+          <Property Name="Role_Id" Type="int" Nullable="false" />
+          <Property Name="Right_Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="First_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password_Salt" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Mobile" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Role_Id" Type="int" Nullable="false" />
+          <Property Name="Is_Locked" Type="bit" Nullable="false" />
+          <Property Name="Date_Created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CONTENT_CONTENT_TYPE">
+          <End Role="CONTENT_TYPE" Type="Self.CONTENT_TYPE" Multiplicity="1" />
+          <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTENT_TYPE">
+              <PropertyRef Name="Content_Type_Id" />
+            </Principal>
+            <Dependent Role="CONTENT">
+              <PropertyRef Name="Content_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENT_USER">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="CONTENT">
+              <PropertyRef Name="Uploader_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENT_USER1">
+          <End Role="USER" Type="Self.USER" Multiplicity="0..1" />
+          <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="CONTENT">
+              <PropertyRef Name="Approver_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOWNLOAD_CONTENT">
+          <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="1" />
+          <End Role="DOWNLOAD" Type="Self.DOWNLOAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTENT">
+              <PropertyRef Name="Content_Id" />
+            </Principal>
+            <Dependent Role="DOWNLOAD">
+              <PropertyRef Name="Content_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOWNLOAD_PAYMENT">
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="1" />
+          <End Role="DOWNLOAD" Type="Self.DOWNLOAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENT">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="DOWNLOAD">
+              <PropertyRef Name="Payment_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_INTERSWITCH_PAYMENT">
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="1" />
+          <End Role="PAYMENT_INTERSWITCH" Type="Self.PAYMENT_INTERSWITCH" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENT">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="PAYMENT_INTERSWITCH">
+              <PropertyRef Name="Payment_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_PAYMENT_CHANNEL">
+          <End Role="PAYMENT_CHANNEL" Type="Self.PAYMENT_CHANNEL" Multiplicity="1" />
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENT_CHANNEL">
+              <PropertyRef Name="Payment_Channel_Id" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="Payment_Channel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_PAYMENT_MODE">
+          <End Role="PAYMENT_MODE" Type="Self.PAYMENT_MODE" Multiplicity="1" />
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENT_MODE">
+              <PropertyRef Name="Payment_Mode_Id" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="Payment_Mode_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_USER">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLE_RIGHT_RIGHT">
+          <End Role="RIGHT" Type="Self.RIGHT" Multiplicity="1" />
+          <End Role="ROLE_RIGHT" Type="Self.ROLE_RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RIGHT">
+              <PropertyRef Name="Right_Id" />
+            </Principal>
+            <Dependent Role="ROLE_RIGHT">
+              <PropertyRef Name="Right_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLE_RIGHT_ROLE">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="ROLE_RIGHT" Type="Self.ROLE_RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="Role_Id" />
+            </Principal>
+            <Dependent Role="ROLE_RIGHT">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_ROLE">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="Role_Id" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MdiaModelStoreContainer">
+          <EntitySet Name="CONTENT" EntityType="Self.CONTENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTENT_TYPE" EntityType="Self.CONTENT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOWNLOAD" EntityType="Self.DOWNLOAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAYMENT" EntityType="Self.PAYMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAYMENT_CHANNEL" EntityType="Self.PAYMENT_CHANNEL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAYMENT_INTERSWITCH" EntityType="Self.PAYMENT_INTERSWITCH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAYMENT_MODE" EntityType="Self.PAYMENT_MODE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RIGHT" EntityType="Self.RIGHT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLE_RIGHT" EntityType="Self.ROLE_RIGHT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CONTENT_CONTENT_TYPE" Association="Self.FK_CONTENT_CONTENT_TYPE">
+            <End Role="CONTENT_TYPE" EntitySet="CONTENT_TYPE" />
+            <End Role="CONTENT" EntitySet="CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENT_USER" Association="Self.FK_CONTENT_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="CONTENT" EntitySet="CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENT_USER1" Association="Self.FK_CONTENT_USER1">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="CONTENT" EntitySet="CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOWNLOAD_CONTENT" Association="Self.FK_DOWNLOAD_CONTENT">
+            <End Role="CONTENT" EntitySet="CONTENT" />
+            <End Role="DOWNLOAD" EntitySet="DOWNLOAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOWNLOAD_PAYMENT" Association="Self.FK_DOWNLOAD_PAYMENT">
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+            <End Role="DOWNLOAD" EntitySet="DOWNLOAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_INTERSWITCH_PAYMENT" Association="Self.FK_PAYMENT_INTERSWITCH_PAYMENT">
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+            <End Role="PAYMENT_INTERSWITCH" EntitySet="PAYMENT_INTERSWITCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_PAYMENT_CHANNEL" Association="Self.FK_PAYMENT_PAYMENT_CHANNEL">
+            <End Role="PAYMENT_CHANNEL" EntitySet="PAYMENT_CHANNEL" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_PAYMENT_MODE" Association="Self.FK_PAYMENT_PAYMENT_MODE">
+            <End Role="PAYMENT_MODE" EntitySet="PAYMENT_MODE" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_USER" Association="Self.FK_PAYMENT_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLE_RIGHT_RIGHT" Association="Self.FK_ROLE_RIGHT_RIGHT">
+            <End Role="RIGHT" EntitySet="RIGHT" />
+            <End Role="ROLE_RIGHT" EntitySet="ROLE_RIGHT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLE_RIGHT_ROLE" Association="Self.FK_ROLE_RIGHT_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="ROLE_RIGHT" EntitySet="ROLE_RIGHT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_ROLE" Association="Self.FK_USER_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MdiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MdiaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CONTENT" EntityType="MdiaModel.CONTENT" />
+          <EntitySet Name="CONTENT_TYPE" EntityType="MdiaModel.CONTENT_TYPE" />
+          <EntitySet Name="DOWNLOAD" EntityType="MdiaModel.DOWNLOAD" />
+          <EntitySet Name="PAYMENT" EntityType="MdiaModel.PAYMENT" />
+          <EntitySet Name="PAYMENT_CHANNEL" EntityType="MdiaModel.PAYMENT_CHANNEL" />
+          <EntitySet Name="PAYMENT_INTERSWITCH" EntityType="MdiaModel.PAYMENT_INTERSWITCH" />
+          <EntitySet Name="PAYMENT_MODE" EntityType="MdiaModel.PAYMENT_MODE" />
+          <EntitySet Name="RIGHT" EntityType="MdiaModel.RIGHT" />
+          <EntitySet Name="ROLE" EntityType="MdiaModel.ROLE" />
+          <EntitySet Name="ROLE_RIGHT" EntityType="MdiaModel.ROLE_RIGHT" />
+          <EntitySet Name="USER" EntityType="MdiaModel.USER" />
+          <AssociationSet Name="FK_CONTENT_CONTENT_TYPE" Association="MdiaModel.FK_CONTENT_CONTENT_TYPE">
+            <End Role="CONTENT_TYPE" EntitySet="CONTENT_TYPE" />
+            <End Role="CONTENT" EntitySet="CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENT_USER" Association="MdiaModel.FK_CONTENT_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="CONTENT" EntitySet="CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTENT_USER1" Association="MdiaModel.FK_CONTENT_USER1">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="CONTENT" EntitySet="CONTENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOWNLOAD_CONTENT" Association="MdiaModel.FK_DOWNLOAD_CONTENT">
+            <End Role="CONTENT" EntitySet="CONTENT" />
+            <End Role="DOWNLOAD" EntitySet="DOWNLOAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOWNLOAD_PAYMENT" Association="MdiaModel.FK_DOWNLOAD_PAYMENT">
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+            <End Role="DOWNLOAD" EntitySet="DOWNLOAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_INTERSWITCH_PAYMENT" Association="MdiaModel.FK_PAYMENT_INTERSWITCH_PAYMENT">
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+            <End Role="PAYMENT_INTERSWITCH" EntitySet="PAYMENT_INTERSWITCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_PAYMENT_CHANNEL" Association="MdiaModel.FK_PAYMENT_PAYMENT_CHANNEL">
+            <End Role="PAYMENT_CHANNEL" EntitySet="PAYMENT_CHANNEL" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_PAYMENT_MODE" Association="MdiaModel.FK_PAYMENT_PAYMENT_MODE">
+            <End Role="PAYMENT_MODE" EntitySet="PAYMENT_MODE" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAYMENT_USER" Association="MdiaModel.FK_PAYMENT_USER">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLE_RIGHT_RIGHT" Association="MdiaModel.FK_ROLE_RIGHT_RIGHT">
+            <End Role="RIGHT" EntitySet="RIGHT" />
+            <End Role="ROLE_RIGHT" EntitySet="ROLE_RIGHT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLE_RIGHT_ROLE" Association="MdiaModel.FK_ROLE_RIGHT_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="ROLE_RIGHT" EntitySet="ROLE_RIGHT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_ROLE" Association="MdiaModel.FK_USER_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CONTENT">
+          <Key>
+            <PropertyRef Name="Content_Id" />
+          </Key>
+          <Property Name="Content_Id" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Uploaded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Uploader_Id" Type="Guid" Nullable="false" />
+          <Property Name="Content_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="Approver_Id" Type="Guid" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Size" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTENT_TYPE" Relationship="MdiaModel.FK_CONTENT_CONTENT_TYPE" FromRole="CONTENT" ToRole="CONTENT_TYPE" />
+          <NavigationProperty Name="USER" Relationship="MdiaModel.FK_CONTENT_USER" FromRole="CONTENT" ToRole="USER" />
+          <NavigationProperty Name="USER1" Relationship="MdiaModel.FK_CONTENT_USER1" FromRole="CONTENT" ToRole="USER" />
+          <NavigationProperty Name="DOWNLOAD" Relationship="MdiaModel.FK_DOWNLOAD_CONTENT" FromRole="CONTENT" ToRole="DOWNLOAD" />
+        </EntityType>
+        <EntityType Name="CONTENT_TYPE">
+          <Key>
+            <PropertyRef Name="Content_Type_Id" />
+          </Key>
+          <Property Name="Content_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Content_Type_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Content_Type_Description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTENT" Relationship="MdiaModel.FK_CONTENT_CONTENT_TYPE" FromRole="CONTENT_TYPE" ToRole="CONTENT" />
+        </EntityType>
+        <EntityType Name="DOWNLOAD">
+          <Key>
+            <PropertyRef Name="Download_Id" />
+          </Key>
+          <Property Name="Download_Id" Type="Guid" Nullable="false" />
+          <Property Name="Content_Id" Type="Guid" Nullable="false" />
+          <Property Name="Payment_Id" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CONTENT" Relationship="MdiaModel.FK_DOWNLOAD_CONTENT" FromRole="DOWNLOAD" ToRole="CONTENT" />
+          <NavigationProperty Name="PAYMENT" Relationship="MdiaModel.FK_DOWNLOAD_PAYMENT" FromRole="DOWNLOAD" ToRole="PAYMENT" />
+        </EntityType>
+        <EntityType Name="PAYMENT">
+          <Key>
+            <PropertyRef Name="Payment_Id" />
+          </Key>
+          <Property Name="Payment_Id" Type="Guid" Nullable="false" />
+          <Property Name="Payment_Mode_Id" Type="Int32" Nullable="false" />
+          <Property Name="Payment_Channel_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Id" Type="Guid" Nullable="false" />
+          <Property Name="Serial_Number" Type="Int64" />
+          <Property Name="Invoice_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Paid" Type="Boolean" Nullable="false" />
+          <Property Name="Date_Paid" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DOWNLOAD" Relationship="MdiaModel.FK_DOWNLOAD_PAYMENT" FromRole="PAYMENT" ToRole="DOWNLOAD" />
+          <NavigationProperty Name="PAYMENT_INTERSWITCH" Relationship="MdiaModel.FK_PAYMENT_INTERSWITCH_PAYMENT" FromRole="PAYMENT" ToRole="PAYMENT_INTERSWITCH" />
+          <NavigationProperty Name="PAYMENT_CHANNEL" Relationship="MdiaModel.FK_PAYMENT_PAYMENT_CHANNEL" FromRole="PAYMENT" ToRole="PAYMENT_CHANNEL" />
+          <NavigationProperty Name="PAYMENT_MODE" Relationship="MdiaModel.FK_PAYMENT_PAYMENT_MODE" FromRole="PAYMENT" ToRole="PAYMENT_MODE" />
+          <NavigationProperty Name="USER" Relationship="MdiaModel.FK_PAYMENT_USER" FromRole="PAYMENT" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="PAYMENT_CHANNEL">
+          <Key>
+            <PropertyRef Name="Payment_Channel_Id" />
+          </Key>
+          <Property Name="Payment_Channel_Id" Type="Int32" Nullable="false" />
+          <Property Name="Payment_Channel_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Payment_Channel_Description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PAYMENT" Relationship="MdiaModel.FK_PAYMENT_PAYMENT_CHANNEL" FromRole="PAYMENT_CHANNEL" ToRole="PAYMENT" />
+        </EntityType>
+        <EntityType Name="PAYMENT_INTERSWITCH">
+          <Key>
+            <PropertyRef Name="Payment_Id" />
+          </Key>
+          <Property Name="Payment_Id" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="PAYMENT" Relationship="MdiaModel.FK_PAYMENT_INTERSWITCH_PAYMENT" FromRole="PAYMENT_INTERSWITCH" ToRole="PAYMENT" />
+        </EntityType>
+        <EntityType Name="PAYMENT_MODE">
+          <Key>
+            <PropertyRef Name="Payment_Mode_Id" />
+          </Key>
+          <Property Name="Payment_Mode_Id" Type="Int32" Nullable="false" />
+          <Property Name="Payment_Mode_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Payment_Mode_Description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PAYMENT" Relationship="MdiaModel.FK_PAYMENT_PAYMENT_MODE" FromRole="PAYMENT_MODE" ToRole="PAYMENT" />
+        </EntityType>
+        <EntityType Name="RIGHT">
+          <Key>
+            <PropertyRef Name="Right_Id" />
+          </Key>
+          <Property Name="Right_Id" Type="Int32" Nullable="false" />
+          <Property Name="Right_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Right_Description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ROLE_RIGHT" Relationship="MdiaModel.FK_ROLE_RIGHT_RIGHT" FromRole="RIGHT" ToRole="ROLE_RIGHT" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="Role_Id" />
+          </Key>
+          <Property Name="Role_Id" Type="Int32" Nullable="false" />
+          <Property Name="Role_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role_Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ROLE_RIGHT" Relationship="MdiaModel.FK_ROLE_RIGHT_ROLE" FromRole="ROLE" ToRole="ROLE_RIGHT" />
+          <NavigationProperty Name="USER" Relationship="MdiaModel.FK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="ROLE_RIGHT">
+          <Key>
+            <PropertyRef Name="Role_Id" />
+            <PropertyRef Name="Right_Id" />
+          </Key>
+          <Property Name="Role_Id" Type="Int32" Nullable="false" />
+          <Property Name="Right_Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RIGHT" Relationship="MdiaModel.FK_ROLE_RIGHT_RIGHT" FromRole="ROLE_RIGHT" ToRole="RIGHT" />
+          <NavigationProperty Name="ROLE" Relationship="MdiaModel.FK_ROLE_RIGHT_ROLE" FromRole="ROLE_RIGHT" ToRole="ROLE" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Guid" Nullable="false" />
+          <Property Name="First_Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password_Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Role_Id" Type="Int32" Nullable="false" />
+          <Property Name="Is_Locked" Type="Boolean" Nullable="false" />
+          <Property Name="Date_Created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CONTENT" Relationship="MdiaModel.FK_CONTENT_USER" FromRole="USER" ToRole="CONTENT" />
+          <NavigationProperty Name="CONTENT1" Relationship="MdiaModel.FK_CONTENT_USER1" FromRole="USER" ToRole="CONTENT" />
+          <NavigationProperty Name="PAYMENT" Relationship="MdiaModel.FK_PAYMENT_USER" FromRole="USER" ToRole="PAYMENT" />
+          <NavigationProperty Name="ROLE" Relationship="MdiaModel.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
+        </EntityType>
+        <Association Name="FK_CONTENT_CONTENT_TYPE">
+          <End Type="MdiaModel.CONTENT_TYPE" Role="CONTENT_TYPE" Multiplicity="1" />
+          <End Type="MdiaModel.CONTENT" Role="CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTENT_TYPE">
+              <PropertyRef Name="Content_Type_Id" />
+            </Principal>
+            <Dependent Role="CONTENT">
+              <PropertyRef Name="Content_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENT_USER">
+          <End Type="MdiaModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="MdiaModel.CONTENT" Role="CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="CONTENT">
+              <PropertyRef Name="Uploader_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTENT_USER1">
+          <End Type="MdiaModel.USER" Role="USER" Multiplicity="0..1" />
+          <End Type="MdiaModel.CONTENT" Role="CONTENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="CONTENT">
+              <PropertyRef Name="Approver_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOWNLOAD_CONTENT">
+          <End Type="MdiaModel.CONTENT" Role="CONTENT" Multiplicity="1" />
+          <End Type="MdiaModel.DOWNLOAD" Role="DOWNLOAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTENT">
+              <PropertyRef Name="Content_Id" />
+            </Principal>
+            <Dependent Role="DOWNLOAD">
+              <PropertyRef Name="Content_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOWNLOAD_PAYMENT">
+          <End Type="MdiaModel.PAYMENT" Role="PAYMENT" Multiplicity="1" />
+          <End Type="MdiaModel.DOWNLOAD" Role="DOWNLOAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENT">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="DOWNLOAD">
+              <PropertyRef Name="Payment_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_INTERSWITCH_PAYMENT">
+          <End Type="MdiaModel.PAYMENT" Role="PAYMENT" Multiplicity="1" />
+          <End Type="MdiaModel.PAYMENT_INTERSWITCH" Role="PAYMENT_INTERSWITCH" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENT">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="PAYMENT_INTERSWITCH">
+              <PropertyRef Name="Payment_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_PAYMENT_CHANNEL">
+          <End Type="MdiaModel.PAYMENT_CHANNEL" Role="PAYMENT_CHANNEL" Multiplicity="1" />
+          <End Type="MdiaModel.PAYMENT" Role="PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENT_CHANNEL">
+              <PropertyRef Name="Payment_Channel_Id" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="Payment_Channel_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_PAYMENT_MODE">
+          <End Type="MdiaModel.PAYMENT_MODE" Role="PAYMENT_MODE" Multiplicity="1" />
+          <End Type="MdiaModel.PAYMENT" Role="PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENT_MODE">
+              <PropertyRef Name="Payment_Mode_Id" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="Payment_Mode_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAYMENT_USER">
+          <End Type="MdiaModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="MdiaModel.PAYMENT" Role="PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLE_RIGHT_RIGHT">
+          <End Type="MdiaModel.RIGHT" Role="RIGHT" Multiplicity="1" />
+          <End Type="MdiaModel.ROLE_RIGHT" Role="ROLE_RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RIGHT">
+              <PropertyRef Name="Right_Id" />
+            </Principal>
+            <Dependent Role="ROLE_RIGHT">
+              <PropertyRef Name="Right_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLE_RIGHT_ROLE">
+          <End Type="MdiaModel.ROLE" Role="ROLE" Multiplicity="1" />
+          <End Type="MdiaModel.ROLE_RIGHT" Role="ROLE_RIGHT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="Role_Id" />
+            </Principal>
+            <Dependent Role="ROLE_RIGHT">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_ROLE">
+          <End Type="MdiaModel.ROLE" Role="ROLE" Multiplicity="1" />
+          <End Type="MdiaModel.USER" Role="USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="Role_Id" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MdiaModelStoreContainer" CdmEntityContainer="MdiaEntities">
+          <EntitySetMapping Name="CONTENT">
+            <EntityTypeMapping TypeName="MdiaModel.CONTENT">
+              <MappingFragment StoreEntitySet="CONTENT">
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Approver_Id" ColumnName="Approver_Id" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Content_Type_Id" ColumnName="Content_Type_Id" />
+                <ScalarProperty Name="Uploader_Id" ColumnName="Uploader_Id" />
+                <ScalarProperty Name="Date_Uploaded" ColumnName="Date_Uploaded" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content_Id" ColumnName="Content_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTENT_TYPE">
+            <EntityTypeMapping TypeName="MdiaModel.CONTENT_TYPE">
+              <MappingFragment StoreEntitySet="CONTENT_TYPE">
+                <ScalarProperty Name="Content_Type_Description" ColumnName="Content_Type_Description" />
+                <ScalarProperty Name="Content_Type_Name" ColumnName="Content_Type_Name" />
+                <ScalarProperty Name="Content_Type_Id" ColumnName="Content_Type_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOWNLOAD">
+            <EntityTypeMapping TypeName="MdiaModel.DOWNLOAD">
+              <MappingFragment StoreEntitySet="DOWNLOAD">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Payment_Id" ColumnName="Payment_Id" />
+                <ScalarProperty Name="Content_Id" ColumnName="Content_Id" />
+                <ScalarProperty Name="Download_Id" ColumnName="Download_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAYMENT">
+            <EntityTypeMapping TypeName="MdiaModel.PAYMENT">
+              <MappingFragment StoreEntitySet="PAYMENT">
+                <ScalarProperty Name="Date_Paid" ColumnName="Date_Paid" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="Invoice_Number" ColumnName="Invoice_Number" />
+                <ScalarProperty Name="Serial_Number" ColumnName="Serial_Number" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Payment_Channel_Id" ColumnName="Payment_Channel_Id" />
+                <ScalarProperty Name="Payment_Mode_Id" ColumnName="Payment_Mode_Id" />
+                <ScalarProperty Name="Payment_Id" ColumnName="Payment_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAYMENT_CHANNEL">
+            <EntityTypeMapping TypeName="MdiaModel.PAYMENT_CHANNEL">
+              <MappingFragment StoreEntitySet="PAYMENT_CHANNEL">
+                <ScalarProperty Name="Payment_Channel_Description" ColumnName="Payment_Channel_Description" />
+                <ScalarProperty Name="Payment_Channel_Name" ColumnName="Payment_Channel_Name" />
+                <ScalarProperty Name="Payment_Channel_Id" ColumnName="Payment_Channel_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAYMENT_INTERSWITCH">
+            <EntityTypeMapping TypeName="MdiaModel.PAYMENT_INTERSWITCH">
+              <MappingFragment StoreEntitySet="PAYMENT_INTERSWITCH">
+                <ScalarProperty Name="Payment_Id" ColumnName="Payment_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAYMENT_MODE">
+            <EntityTypeMapping TypeName="MdiaModel.PAYMENT_MODE">
+              <MappingFragment StoreEntitySet="PAYMENT_MODE">
+                <ScalarProperty Name="Payment_Mode_Description" ColumnName="Payment_Mode_Description" />
+                <ScalarProperty Name="Payment_Mode_Name" ColumnName="Payment_Mode_Name" />
+                <ScalarProperty Name="Payment_Mode_Id" ColumnName="Payment_Mode_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RIGHT">
+            <EntityTypeMapping TypeName="MdiaModel.RIGHT">
+              <MappingFragment StoreEntitySet="RIGHT">
+                <ScalarProperty Name="Right_Description" ColumnName="Right_Description" />
+                <ScalarProperty Name="Right_Name" ColumnName="Right_Name" />
+                <ScalarProperty Name="Right_Id" ColumnName="Right_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLE">
+            <EntityTypeMapping TypeName="MdiaModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="Role_Description" ColumnName="Role_Description" />
+                <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLE_RIGHT">
+            <EntityTypeMapping TypeName="MdiaModel.ROLE_RIGHT">
+              <MappingFragment StoreEntitySet="ROLE_RIGHT">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Right_Id" ColumnName="Right_Id" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER">
+            <EntityTypeMapping TypeName="MdiaModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Is_Locked" ColumnName="Is_Locked" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password_Salt" ColumnName="Password_Salt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

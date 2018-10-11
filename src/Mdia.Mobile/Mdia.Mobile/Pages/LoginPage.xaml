@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Mdia.Mobile.Pages.LoginPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vmBase="clr-namespace:Mdia.Mobile.PageModels.Base"
+             vmBase:PageModelLocator.AutoWireViewModel="True"
+             xmlns:behaviors="clr-namespace:Mdia.Mobile.Behaviours"
+             BackgroundColor="Silver"
+             Title="Login">
+
+    <StackLayout VerticalOptions="CenterAndExpand">
+        <ScrollView>
+            <Grid Padding="20, 15, 20, 20" RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Text="Login" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" TextColor="White">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <OnPlatform.iOS>MarkerFelt-Thin</OnPlatform.iOS>
+                            <OnPlatform.Android></OnPlatform.Android>
+                            <OnPlatform.WinPhone></OnPlatform.WinPhone>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+
+                <Grid Grid.Row="1" HorizontalOptions="Fill" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="iconUsername.png" HeightRequest="30" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+                    <StackLayout Grid.Row="0" Grid.Column="1">
+                        <Entry Text="{Binding UserName.Value}" 
+                               Placeholder="User Name" 
+                               HorizontalOptions="Fill" >
+
+                            <Entry.Style>
+                                <OnPlatform x:TypeArguments="Style"
+                                iOS="{StaticResource EntryStyle}"
+                                Android="{StaticResource EntryStyle}"
+                                WinPhone="{StaticResource UwpEntryStyle}"/>
+                            </Entry.Style>
+
+                            <Entry.Behaviors>
+                                <behaviors:EventToCommandBehaviour EventName="TextChanged" Command="{Binding UserNameValidationCommand}" />
+                            </Entry.Behaviors>
+
+                            <Entry.Triggers>
+                                <DataTrigger TargetType="Entry" Value="False">
+                                    <Setter Property="behaviors:LineColourBehaviour.LineColor" Value="{StaticResource ErrorColor}" />
+                                </DataTrigger>
+                            </Entry.Triggers>
+
+                            <!--<Entry.Behaviors>
+                                <behaviors:EventToCommandBehaviour EventName="TextChanged" Command="{Binding UserNameValidationCommand}" />
+                            </Entry.Behaviors>
+
+                            <Entry.Triggers>
+                                <DataTrigger TargetType="Entry" Binding="{Binding UserName.IsValid}" Value="False">
+                                    <Setter Property="behaviors:LineColourBehaviour.LineColor" Value="{StaticResource ErrorColor}" />
+                                </DataTrigger>
+                            </Entry.Triggers>-->
+                        </Entry>
+                        
+                        
+                        
+                        
+
+                        <!--<Label IsVisible="{Binding UserName.IsValid}" Text="User name is required!" TextColor="Red" />-->
+                        <!--<Label Text="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+					         Style="{StaticResource ValidationErrorLabelStyle}" />-->
+                        
+                    </StackLayout>
+                </Grid>
+
+                <Grid Grid.Row="2" HorizontalOptions="Fill" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="iconPassword.png" HeightRequest="30" VerticalOptions="Center" />
+                    <Entry Text="{Binding Password.Value}" Placeholder="Password" IsPassword="True" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <StackLayout Grid.Row="3" Spacing="12" HorizontalOptions="Fill">
+                    <Button Command="{Binding LoginCommand}" Text="Login" HorizontalOptions="Fill" BackgroundColor="Gray" HeightRequest="50" FontAttributes="Bold" TextColor="White"/>
+                </StackLayout>
+
+            </Grid>
+        </ScrollView>
+    </StackLayout>
+
+</ContentPage>
